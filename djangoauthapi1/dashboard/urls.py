@@ -22,7 +22,7 @@ urlpatterns = [
     path('single-test-suite-name/<int:pk>/', TestSuiteNameRetrieveView.as_view(), name='testsuites-detail'),
     path('test-suite-name-list/<int:pk>/', TestSuiteNameListViewBySuite.as_view(), name='test_suite_name_list'),
     path('test-suite-delete/<int:pk>/', TestSuiteDeleteView.as_view(), name='test_suite_delete'),  
-    path('test-suite-name/<int:pk>/', TestSuiteNameDeleteView.as_view(), name='test_suite_name_delete'),
+    path('test-suite-name-delete/<int:pk>/', TestSuiteNameDeleteView.as_view(), name='test_suite_name_delete'),
     path('test-suite-name-update/<int:pk>/', TestSuiteNameUpdateView.as_view(), name='test_suite_name_update'),
 ]
 
