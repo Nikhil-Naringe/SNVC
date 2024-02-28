@@ -26,6 +26,9 @@ class TestSuiteDetailSerializer(serializers.ModelSerializer):
         read_only_fields = ['id']
 
 
+class SuiteNameSerializer(serializers.Serializer):
+    suite_name = serializers.CharField(max_length=50, source='get_suite_name_display')
+
 
 
 
