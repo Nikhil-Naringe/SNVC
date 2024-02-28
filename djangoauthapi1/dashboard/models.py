@@ -49,12 +49,7 @@ class TestSuiteName(models.Model):
         ('ubuntu', 'Ubuntu'),
     ]
     operating_system = models.CharField(max_length=50, choices=OS_CHOICES, verbose_name=_("Operating System"))
-    SUITE_CHOICES = [
-        ('test_file_supersede_and_file_create.py', 'test_file_supersede_and_file_create.py'),
-        ('test_file_open_and_file_open_if.py', 'test_file_open_and_file_open_if.py'),
-        ('test_file_overwrite_and_file_overwrite_if.py', 'test_file_overwrite_and_file_overwrite_if.py'),
-    ]
-    suite_name = models.CharField(max_length=50, choices=SUITE_CHOICES, verbose_name=_("Test Suite"))
+    suite_name = models.CharField(max_length=50, verbose_name=_("Test Suite"))
     location = models.CharField(max_length=50, help_text=_("Enter folder location"), verbose_name=_("Location"))
     user_name = models.CharField(max_length=50, verbose_name=_("User Name"))
     password = models.CharField(max_length=50, validators=[RegexValidator(regex=r'^[\w.@+-]+$', message='Invalid password format')], verbose_name=_("Password"))
@@ -63,3 +58,4 @@ class TestSuiteName(models.Model):
 
     def __str__(self):
         return f"{self.operating_system} - {self.location}"
+
