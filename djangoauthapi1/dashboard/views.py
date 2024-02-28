@@ -6,6 +6,8 @@ from .models import TestSuite, TestSuiteName
 from .serializers import TestSuiteSerializer, TestSuiteNameSerializer
 from rest_framework.permissions import IsAuthenticated
 from .serializers import TestSuiteDetailSerializer
+from .models import TestSuiteName
+from .models import TestSuite
 # from django.http import Http404
 
 
@@ -304,45 +306,4 @@ class TestSuiteNameListViewBySuite(generics.ListAPIView):
             return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'TestSuiteNames retrieved successfully', 'data': serializer.data})
         else:
             return Response({'status': 'error', 'code': status.HTTP_404_NOT_FOUND, 'msg': 'No TestSuiteNames found'}, status=status.HTTP_404_NOT_FOUND)
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
