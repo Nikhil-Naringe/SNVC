@@ -14,7 +14,7 @@ class TestSuiteNameSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = TestSuiteName
-        fields = ['id', 'user_name', 'password', 'operating_system', 'suite_name', 'location', 'test_suite']
+        fields = ['id', 'user_name', 'password', 'operating_system', 'suite_name', 'location', 'test_suite', 'ip_address']
         read_only_fields = ['id']
 
 
@@ -24,6 +24,7 @@ class TestSuiteDetailSerializer(serializers.ModelSerializer):
         model = TestSuite
         fields = ['id', 'protocol', 'host_ip_address', 'share', 'user_name', 'password', 'log_level', 'sign', 'encrypt', 'trace', 'min_dialect', 'max_dialect']
         read_only_fields = ['id']
+
 
 
 
