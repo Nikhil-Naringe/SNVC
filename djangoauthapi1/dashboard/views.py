@@ -8,7 +8,8 @@ from rest_framework.permissions import IsAuthenticated
 from .serializers import TestSuiteDetailSerializer
 from .models import TestSuiteName
 from .models import TestSuite
-# from django.http import Http404
+from rest_framework.views import APIView
+
 
 
 class TestSuitePagination(PageNumberPagination):
@@ -165,9 +166,6 @@ class TestSuiteNameRetrieveView(generics.RetrieveAPIView):
 
 
 
-
-
-
 class TestSuiteNameDeleteView(generics.DestroyAPIView):
     queryset = TestSuiteName.objects.all()
     serializer_class = TestSuiteNameSerializer
@@ -192,9 +190,6 @@ class TestSuiteNameDeleteView(generics.DestroyAPIView):
 
 #         self.perform_destroy(instance)
 #         return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'TestSuiteName deleted successfully'})
-
-
-
 
 
 
@@ -229,10 +224,6 @@ class TestSuiteDetailView(generics.RetrieveAPIView):
 #             return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'TestSuite detail retrieved successfully', 'data': serializer.data})
 #         else:
 #             return Response({'status': 'error', 'code': status.HTTP_404_NOT_FOUND, 'msg': 'No data available'}, status=status.HTTP_404_NOT_FOUND)
-
-
-
-
 
 
 
@@ -306,4 +297,15 @@ class TestSuiteNameListViewBySuite(generics.ListAPIView):
             return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'TestSuiteNames retrieved successfully', 'data': serializer.data})
         else:
             return Response({'status': 'error', 'code': status.HTTP_404_NOT_FOUND, 'msg': 'No TestSuiteNames found'}, status=status.HTTP_404_NOT_FOUND)
+
+
+
+class SuiteNameView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        suite_names = TestSuiteName.objects.values_list('suite_name', flat=True).distinct()
+        return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'Suite Names retrieved successfully', 'data': list(suite_names)})
+
+
 
