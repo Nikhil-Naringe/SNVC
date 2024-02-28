@@ -35,11 +35,12 @@ class TestSuite(models.Model):
     trace = models.BooleanField(default=False, choices=YES_NO_CHOICES, verbose_name=_("Trace"))
     dialect_regex = r'^[A-Za-z]+_[A-Za-z0-9_]+$'
     dialect_validator = RegexValidator(regex=dialect_regex,message=_("Dialect should be in the format 'DIALECT_SMB3_1_1'"),)
-    min_dialect = models.CharField(max_length=255,validators=[dialect_validator],default='DIALECT_SMB3_1_1',  verbose_name=_("Min Dialect"), )
-    max_dialect = models.CharField( max_length=255, validators=[dialect_validator],default='DIALECT_SMB2_002',  verbose_name=_("Max Dialect"),)
+    min_dialect = models.CharField(max_length=255,validators=[dialect_validator], verbose_name=_("Min Dialect"), )
+    max_dialect = models.CharField( max_length=255, validators=[dialect_validator], verbose_name=_("Max Dialect"),)
 
     def __str__(self):
         return f"{self.protocol} - {self.host_ip_address} - {self.share} - {self.user_name}"
+
 
 class TestSuiteName(models.Model):
     OS_CHOICES = [
@@ -48,11 +49,17 @@ class TestSuiteName(models.Model):
         ('ubuntu', 'Ubuntu'),
     ]
     operating_system = models.CharField(max_length=50, choices=OS_CHOICES, verbose_name=_("Operating System"))
-    suite_name = models.CharField(max_length=50, verbose_name=_("Test Suite"))
+    SUITE_CHOICES = [
+        ('test_file_supersede_and_file_create.py', 'test_file_supersede_and_file_create.py'),
+        ('test_file_open_and_file_open_if.py', 'test_file_open_and_file_open_if.py'),
+        ('test_file_overwrite_and_file_overwrite_if.py', 'test_file_overwrite_and_file_overwrite_if.py'),
+    ]
+    suite_name = models.CharField(max_length=50, choices=SUITE_CHOICES, verbose_name=_("Test Suite"))
     location = models.CharField(max_length=50, help_text=_("Enter folder location"), verbose_name=_("Location"))
     user_name = models.CharField(max_length=50, verbose_name=_("User Name"))
     password = models.CharField(max_length=50, validators=[RegexValidator(regex=r'^[\w.@+-]+$', message='Invalid password format')], verbose_name=_("Password"))
     test_suite = models.ForeignKey(TestSuite, on_delete=models.CASCADE)
+    ip_address = models.GenericIPAddressField(verbose_name=_("IP Address"))
 
     def __str__(self):
         return f"{self.operating_system} - {self.location}"
