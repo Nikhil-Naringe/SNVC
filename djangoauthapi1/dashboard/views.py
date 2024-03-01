@@ -317,6 +317,6 @@ class RunJobAPIView(APIView):
         
         if current_test_suite:
             serializer = RunJobSerializer(current_test_suite)
-            return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'Last inserted data retrieved successfully', 'data': serializer.data})
+            return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'test suite detail retrieved successfully', 'data': serializer.data})
         else:
             return Response({'status': 'error', 'code': status.HTTP_404_NOT_FOUND, 'msg': 'No data available'}, status=status.HTTP_404_NOT_FOUND)
