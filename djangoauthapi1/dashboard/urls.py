@@ -1,5 +1,6 @@
 from django.urls import path
 from .views import (
+    RunJobAPIView,
     SuiteNameView,
     TestSuiteCreateView,
     TestSuiteNameCreateView,
@@ -26,7 +27,8 @@ urlpatterns = [
     path('test-suite-name-delete/<int:pk>/', TestSuiteNameDeleteView.as_view(), name='test_suite_name_delete'),
     path('test-suite-name-update/<int:pk>/', TestSuiteNameUpdateView.as_view(), name='test_suite_name_update'),
     path('suite-names/', SuiteNameView.as_view(), name='suite_names'),
+    path('details/', RunJobAPIView.as_view(), name='last_inserted_test_suite_name'),
+    
 ]
-
 
 
