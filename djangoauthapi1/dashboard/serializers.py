@@ -30,5 +30,10 @@ class SuiteNameSerializer(serializers.Serializer):
     suite_name = serializers.CharField(max_length=50, source='get_suite_name_display')
 
 
+class RunJobSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = TestSuiteName
+        fields = ['suite_name', 'ip_address', 'user_name', 'password']
+
 
 
