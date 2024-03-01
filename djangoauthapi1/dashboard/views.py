@@ -3,7 +3,7 @@ from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.pagination import PageNumberPagination
 from .models import TestSuite, TestSuiteName
-from .serializers import TestSuiteSerializer, TestSuiteNameSerializer
+from .serializers import RunJobSerializer, TestSuiteSerializer, TestSuiteNameSerializer
 from rest_framework.permissions import IsAuthenticated
 from .serializers import TestSuiteDetailSerializer
 from .models import TestSuiteName
@@ -309,3 +309,14 @@ class SuiteNameView(APIView):
 
 
 
+class RunJobAPIView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def get(self, request, *args, **kwargs):
+        current_test_suite = TestSuiteName.objects.last()
+        
+        if current_test_suite:
+            serializer = RunJobSerializer(current_test_suite)
+            return Response({'status': 'success', 'code': status.HTTP_200_OK, 'msg': 'Last inserted data retrieved successfully', 'data': serializer.data})
+        else:
+            return Response({'status': 'error', 'code': status.HTTP_404_NOT_FOUND, 'msg': 'No data available'}, status=status.HTTP_404_NOT_FOUND)
