@@ -54,7 +54,7 @@ class TestSuiteName(models.Model):
     user_name = models.CharField(max_length=50, verbose_name=_("User Name"))
     password = models.CharField(max_length=50, validators=[RegexValidator(regex=r'^[\w.@+-]+$', message='Invalid password format')], verbose_name=_("Password"))
     test_suite = models.ForeignKey(TestSuite, on_delete=models.CASCADE)
-    ip_address = models.GenericIPAddressField(verbose_name=_("IP Address"))
+    ip_address = models.GenericIPAddressField(verbose_name=_("IP Address"), default='0.0.0.0')
 
     def __str__(self):
         return f"{self.operating_system} - {self.location}"
